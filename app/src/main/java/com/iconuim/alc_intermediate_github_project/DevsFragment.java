@@ -28,7 +28,7 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+    private static  ArrayAdapter<GitDev> adapter;
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
@@ -48,12 +48,27 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
      */
     private ListAdapter mAdapter;
 
+
+
+
+    public void getUserInfo()
+    {
+
+        String gitAPIUrl = getString(R.string.githubUserAPI);
+
+        //volley request
+
+
+    }
+
+
+
     // TODO: Rename and change types of parameters
     public static DevsFragment newInstance(String param1, String param2) {
         DevsFragment fragment = new DevsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+    //    args.putString(ARG_PARAM1, param1);
+     //   args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,7 +85,7 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
@@ -85,16 +100,16 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
         View view = inflater.inflate(R.layout.fragment_devs, container, false);
 
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
+       // mListView = (AbsListView) view.findViewById(android.R.id.list);
+       // ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
-        mListView.setOnItemClickListener(this);
+      //  mListView.setOnItemClickListener(this);
 
         return view;
     }
 
-    @Override
+  /*  @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
@@ -105,6 +120,7 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
         }
     }
 
+      */
     @Override
     public void onDetach() {
         super.onDetach();
