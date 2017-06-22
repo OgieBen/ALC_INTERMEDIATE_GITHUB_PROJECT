@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.iconuim.alc_intermediate_github_project.dummy.DummyContent;
 
+import java.util.ArrayList;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -26,42 +28,23 @@ import com.iconuim.alc_intermediate_github_project.dummy.DummyContent;
  */
 public class DevsFragment extends ListFragment implements AbsListView.OnItemClickListener {
 
+    private static final String ARG_PARAM2 = "param2";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static  ArrayAdapter<GitDev> adapter;
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private static ListAdapter mAdapter;
+    private static ArrayList<GitDev> usersList = new ArrayList<>();
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * The fragment's ListView/GridView.
-     */
-    private AbsListView mListView;
+
+
 
     /**
-     * The Adapter which will be used to populate the ListView/GridView with
-     * Views.
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
      */
-    private ListAdapter mAdapter;
-
-
-
-
-    public void getUserInfo()
-    {
-
-        String gitAPIUrl = getString(R.string.githubUserAPI);
-
-        //volley request
-
-
+    public DevsFragment() {
     }
-
-
 
     // TODO: Rename and change types of parameters
     public static DevsFragment newInstance(String param1, String param2) {
@@ -73,11 +56,62 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
         return fragment;
     }
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public DevsFragment() {
+    public void getUserInfo()
+    {
+
+        String gitAPIUrl = getString(R.string.githubUserAPI);
+
+        //volley request
+
+       /* RequestQueue mRequestQueue;
+
+// Instantiate the cache
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+// Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+// Instantiate the RequestQueue with the cache and network.
+        mRequestQueue = new RequestQueue(cache, network);
+
+// Start the queue
+        mRequestQueue.start();
+
+        String url ="http://www.example.com";
+
+// Formulate the request and handle the response.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do something with the response
+                        // run another volley request
+                        //then send its response to add user;
+
+                        //addUsers();
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Handle error
+                    }
+                });
+
+// Add the request to the RequestQueue.
+        mRequestQueue.add(stringRequest);
+
+*/
+
+    }
+
+    public void addUsers(GitDev dev)
+    {
+
+        adapter.add(dev);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -86,7 +120,7 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
 
         if (getArguments() != null) {
 
-            mParam2 = getArguments().getString(ARG_PARAM2);
+         //   mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
         // TODO: Change Adapter to display your content
@@ -98,6 +132,8 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_devs, container, false);
+
+
 
         // Set the adapter
        // mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -142,11 +178,16 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
      * to supply the text it should use.
      */
     public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
 
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        adapter = new ArrayAdapter<GitDev>(getContext(),android.R.layout.simple_list_item_1,usersList);
+        setListAdapter(adapter);
     }
 
     /**
@@ -163,5 +204,4 @@ public class DevsFragment extends ListFragment implements AbsListView.OnItemClic
         // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
     }
-
 }
