@@ -10,7 +10,8 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 /**
  * Created by ogie on 6/22/2017.
@@ -22,16 +23,16 @@ public class ApiRequest extends Request<Devs> {
     private static Map<String, String> headers;
     private static  Response.Listener listener;
     private static  Response.ErrorListener errorListener;
-    private static Devs devs;
-   // private static Gs
+    private static Class<Devs> devs;
+     private static Gson gson = new Gson();
 
-    public ApiRequest(int _method, String _url,Devs _devs, Map<String, String> _headers,
+    public ApiRequest(int _method, String _url, Class<Devs> _devs, Map<String, String> _headers,
                       Response.Listener _listener, Response.ErrorListener _errorListener) {
-        super(method, url,errorListener);
+        super(_method, _url,_errorListener);
 
             method = _method;
-            url = _url;
             devs = _devs;
+            url = _url;
             headers = _headers;
             listener = _listener;
             errorListener = _errorListener;
@@ -44,7 +45,7 @@ public class ApiRequest extends Request<Devs> {
     protected Response<Devs> parseNetworkResponse(NetworkResponse networkResponse) {
 
 
-      /* try {
+       try {
             String json = new String(
                     networkResponse.data,
                     HttpHeaderParser.parseCharset(networkResponse.headers));
@@ -57,9 +58,9 @@ public class ApiRequest extends Request<Devs> {
             return Response.error(new ParseError(e));
         }
     }
-*/
-    return null;
-    }
+
+
+
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {

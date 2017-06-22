@@ -4,18 +4,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" tools:context=".MainActivity">
-<fragment
-    android:name="com.iconuim.alc_intermediate_github_project.DevsFragment"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/devs_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical"
-
+        tools:listitem="@layout/devs_card"
         />
 
 
