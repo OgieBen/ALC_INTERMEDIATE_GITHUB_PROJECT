@@ -1,29 +1,37 @@
 package com.iconuim.alc_intermediate_github_project;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by ogie on 6/11/2017.
  */
-public class GitDev {
+public class GitDev implements Parcelable {
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public GitDev createFromParcel(Parcel in) {
+            return new GitDev(in);
+        }
+        public GitDev[] newArray(int size) {
+            return new GitDev[size];
+        }
+    };
     @SerializedName("login")
     @Expose
     private String login;
-
     @SerializedName("avatar_url")
     @Expose
     private String avatar_url;
-
     private String id;
     private String gravatar_id;
-
     @SerializedName("url")
     @Expose
     private String url;
-
-
+    @SerializedName("html_url")
+    @Expose
     private String html_url;
     private String followers_url;
     private String following_url;
@@ -39,22 +47,25 @@ public class GitDev {
     private String score;
 
 
+
+
+
+
     public GitDev(String _login, String _avatar_url) {
         login = _login;
         avatar_url = _avatar_url;
     }
 
-  /*
-
-
 
 
    public GitDev(Parcel in) {
         login = in.readString();
-        avatar_url =in.readString();
-    }
-    */
+        avatar_url = in.readString();
+       html_url = in.readString();
+       url = in.readString();
 
+
+    }
 
     public String getLogin() {
         return login;
@@ -97,7 +108,7 @@ public class GitDev {
     }
 
     public String getHtml_url() {
-        return html_url;
+        return this.html_url;
     }
 
     public void setHtml_url(String html_url) {
@@ -200,8 +211,6 @@ public class GitDev {
         this.score = score;
     }
 
-
-    /*
     @Override
     public int describeContents() {
         return 0;
@@ -211,23 +220,15 @@ public class GitDev {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(login);
         dest.writeString(avatar_url);
+        dest.writeString(url);
+        dest.writeString(html_url);
 
     }
-
-
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public GitDev createFromParcel(Parcel in) {
-            return new GitDev(in);
-        }
-        public GitDev[] newArray(int size) {
-            return new GitDev[size];
-        }
-    };
 
     @Override
     public String toString() {
         return super.toString();
     }
-    */
+
 
 }

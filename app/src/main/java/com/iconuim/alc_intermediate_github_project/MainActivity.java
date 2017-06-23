@@ -1,5 +1,6 @@
 package com.iconuim.alc_intermediate_github_project;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -17,6 +19,7 @@ import com.google.gson.Gson;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private static String URL = "https://api.github.com/search/users?q=location:lagos+language:java";
     private static Gson gson = new Gson();
     private static Devs devs;
-    private static List<GitDev> devsTemp;
+    private static ArrayList<GitDev> devsTemp = new ArrayList<GitDev>();
+    private static ProgressDialog dialog;
+   // private static List<String> devsTemp = ;
+    ListView listView;
     JSONArray array;
 
     @Override
@@ -35,9 +41,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        devsRecyclerView = (RecyclerView) findViewById(R.id.devs_recycler_view);
-        devsRecyclerViewLayoutManager = new LinearLayoutManager(MainActivity.this);
-        devsRecyclerView.setLayoutManager(devsRecyclerViewLayoutManager);
+        listView =  (ListView) findViewById(R.id.devsListView);
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setMessage("Loading");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
+
+
+//        devsRecyclerView = (RecyclerView) findViewById(R.id.devs_recycler_view);
+  //      devsRecyclerViewLayoutManager = new LinearLayoutManager(MainActivity.this);
+    //    devsRecyclerView.setLayoutManager(devsRecyclerViewLayoutManager);
 
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -54,10 +68,22 @@ public class MainActivity extends AppCompatActivity {
                         for (GitDev d : devs.getItems()) {
                             Log.e("----", "\n " + (d instanceof GitDev ? "true" : "false"));
                             Log.e(":::::::", (i++) + "\n Login " + d.getLogin());
+                            devsTemp.add(d);
+
                         }
 
-                        devsRecyclerViewAdapter = new DevsRecyclerViewAdapter(getApplication().getApplicationContext(), devs.getItems());
-                        devsRecyclerView.setAdapter(devsRecyclerViewAdapter);
+                        final DevsListViewAdapter devsListViewAdapter = new DevsListViewAdapter(MainActivity.this, R.layout.devs_card, devsTemp);
+                        listView.setAdapter(devsListViewAdapter);
+                        devsListViewAdapter.notifyDataSetChanged();
+
+                        dialog.dismiss();
+
+                     //   devsRecyclerViewAdapter = new DevsRecyclerViewAdapter(getApplication().getApplicationContext(), devs.getItems());
+                     //   devsRecyclerView.setAdapter(devsRecyclerViewAdapter);
+
+
+
+
 
                     }
                 },
@@ -74,6 +100,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         requestQueue.add(apiRequest);
+
+
+
+        // DevsListViewAdapter devsListViewAdapter =  ;
 
     }
 

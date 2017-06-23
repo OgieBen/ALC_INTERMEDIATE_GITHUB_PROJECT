@@ -17,7 +17,7 @@ public class Devs {
 
      @SerializedName("items")
      @Expose
-     List<GitDev> items ;
+     ArrayList<GitDev> items ;
 
     public String getTotal_counts() {
         return total_counts;
@@ -39,7 +39,7 @@ public class Devs {
         return items;
     }
 
-    public void setItems(List<GitDev> items) {
+    public void setItems(ArrayList<GitDev> items) {
         this.items = items;
     }
 }
