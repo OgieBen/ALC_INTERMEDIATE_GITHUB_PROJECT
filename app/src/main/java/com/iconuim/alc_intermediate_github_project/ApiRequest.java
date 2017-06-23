@@ -44,11 +44,12 @@ public class ApiRequest extends Request<Devs> {
     @Override
     protected Response<Devs> parseNetworkResponse(NetworkResponse networkResponse) {
 
-
+//run network request
        try {
             String json = new String(
                     networkResponse.data,
                     HttpHeaderParser.parseCharset(networkResponse.headers));
+           //return model on sucess
             return Response.success(
                     gson.fromJson(json, devs),
                     HttpHeaderParser.parseCacheHeaders(networkResponse));

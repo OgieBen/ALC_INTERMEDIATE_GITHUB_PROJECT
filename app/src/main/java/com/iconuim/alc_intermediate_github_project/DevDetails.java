@@ -28,7 +28,7 @@ public class DevDetails extends AppCompatActivity {
         ImageView devProfileAvatar = (ImageView) findViewById(R.id.devAvatar);
 
         userName.setText(gitDev.getLogin().toString());
-        Log.e("----"," "+gitDev.getUrl().toString());
+       // Log.e("----"," "+gitDev.getUrl().toString());
         profileUrl.setText(gitDev.getUrl().toString());
 
         Picasso.with(this)

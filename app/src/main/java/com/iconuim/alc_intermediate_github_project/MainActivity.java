@@ -3,9 +3,7 @@ package com.iconuim.alc_intermediate_github_project;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -20,7 +18,6 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private static Devs devs;
     private static ArrayList<GitDev> devsTemp = new ArrayList<GitDev>();
     private static ProgressDialog dialog;
-   // private static List<String> devsTemp = ;
+    // private static List<String> devsTemp = ;
     ListView listView;
     JSONArray array;
 
@@ -41,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView =  (ListView) findViewById(R.id.devsListView);
+
+
+        listView = (ListView) findViewById(R.id.devsListView);
         dialog = new ProgressDialog(MainActivity.this);
         dialog.setMessage("Loading");
         dialog.setCancelable(false);
@@ -49,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
 
-//        devsRecyclerView = (RecyclerView) findViewById(R.id.devs_recycler_view);
-  //      devsRecyclerViewLayoutManager = new LinearLayoutManager(MainActivity.this);
-    //    devsRecyclerView.setLayoutManager(devsRecyclerViewLayoutManager);
+        //       devsRecyclerView = (RecyclerView) findViewById(R.id.devs_recycler_view);
+        //       devsRecyclerViewLayoutManager = new LinearLayoutManager(MainActivity.this);
+        //       devsRecyclerView.setLayoutManager(devsRecyclerViewLayoutManager);
 
-
+        //create new requestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
 
@@ -62,27 +61,26 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<Devs>() {
                     @Override
                     public void onResponse(Devs _devs) {
+
                         devs = _devs;
 
-                        int i = 0;
                         for (GitDev d : devs.getItems()) {
-                            Log.e("----", "\n " + (d instanceof GitDev ? "true" : "false"));
-                            Log.e(":::::::", (i++) + "\n Login " + d.getLogin());
                             devsTemp.add(d);
-
                         }
 
+                        // create instance of the adapter
                         final DevsListViewAdapter devsListViewAdapter = new DevsListViewAdapter(MainActivity.this, R.layout.devs_card, devsTemp);
+
+                        //bind adapter to listview
                         listView.setAdapter(devsListViewAdapter);
+
+                        //notify adapter about new data
                         devsListViewAdapter.notifyDataSetChanged();
 
                         dialog.dismiss();
 
-                     //   devsRecyclerViewAdapter = new DevsRecyclerViewAdapter(getApplication().getApplicationContext(), devs.getItems());
-                     //   devsRecyclerView.setAdapter(devsRecyclerViewAdapter);
-
-
-
+                        //   devsRecyclerViewAdapter = new DevsRecyclerViewAdapter(getApplication().getApplicationContext(), devs.getItems());
+                        //   devsRecyclerView.setAdapter(devsRecyclerViewAdapter);
 
 
                     }
@@ -100,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         requestQueue.add(apiRequest);
-
 
 
         // DevsListViewAdapter devsListViewAdapter =  ;

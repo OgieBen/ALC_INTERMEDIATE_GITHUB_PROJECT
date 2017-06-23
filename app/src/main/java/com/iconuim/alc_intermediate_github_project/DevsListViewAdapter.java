@@ -37,6 +37,7 @@ public class DevsListViewAdapter extends ArrayAdapter<GitDev> {
         View view;
         final GitDev dev = getItem(position);
 
+        //inflate new view if view is null
         if(convertView == null) {
              view = (View) LayoutInflater.from(parent.getContext())
                     .inflate(res, parent, false);
@@ -44,11 +45,12 @@ public class DevsListViewAdapter extends ArrayAdapter<GitDev> {
             view = (LinearLayout) convertView;
         }
 
-
+             //update textvoew with developer's user name
                 ((TextView) view.findViewById(R.id.devsUserName))
                     .setText(devsData.get(position).getLogin());
         ImageView imageView = ((ImageView)view.findViewById(R.id.devsAvater));
 
+        //update imageview with image from server
        Picasso.with(context)
                 .load(devsData.get(position).getAvatar_url())
                 .fit()
@@ -56,6 +58,8 @@ public class DevsListViewAdapter extends ArrayAdapter<GitDev> {
                 .error(R.drawable.placeholder)
                 .into(imageView);
 
+
+        //show details of developer if imageview is clicked
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
