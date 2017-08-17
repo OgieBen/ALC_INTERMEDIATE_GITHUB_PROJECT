@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<Devs>() {
                     @Override
                     public void onResponse(Devs _devs) {
-
+                        devsTemp.clear();
                         devs = _devs;
 
                         for (GitDev d : devs.getItems()) {
