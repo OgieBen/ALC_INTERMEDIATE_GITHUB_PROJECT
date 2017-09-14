@@ -11,14 +11,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by ogie on 6/11/2017.
  */
 public class GitDev implements Parcelable {
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public GitDev createFromParcel(Parcel in) {
-            return new GitDev(in);
-        }
-        public GitDev[] newArray(int size) {
-            return new GitDev[size];
-        }
-    };
+   
     @SerializedName("login")
     @Expose
     private String login;
@@ -47,7 +40,14 @@ public class GitDev implements Parcelable {
     private String score;
 
 
-
+ public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public GitDev createFromParcel(Parcel in) {
+            return new GitDev(in);
+        }
+        public GitDev[] newArray(int size) {
+            return new GitDev[size];
+        }
+    };
 
 
 
